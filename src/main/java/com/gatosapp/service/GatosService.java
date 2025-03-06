@@ -90,6 +90,29 @@ public class GatosService {
 
     public static void favoritoGato(Gatos gato) {
 
+        try {
+            OkHttpClient client = new OkHttpClient();
+
+            MediaType mediaType = MediaType.parse("application/json");
+            RequestBody body = RequestBody.create(mediaType, "{\n    \"image_id\": \"" + gato.getId() + "\"\n}");
+            Request request = new Request.Builder()
+                    .url("https://api.thecatapi.com/v1/favourites")
+                    .post(body)
+                    .addHeader("Content-Type", "application/json")
+                    .addHeader("x-api-key", gato.getApiKey())
+                    .build();
+
+            Response response = client.newCall(request).execute();
+
+            if (response.isSuccessful()) {
+                JOptionPane.showMessageDialog(null, "Gato añadido a favoritos", "Favorito", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Algo salió mal", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
 }
