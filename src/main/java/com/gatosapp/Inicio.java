@@ -3,9 +3,10 @@ package com.gatosapp;
 import com.gatosapp.service.GatosService;
 
 import javax.swing.*;
+import java.io.IOException;
 
 public class Inicio {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         int opcionMenu = -1;
         String[] botones = {
